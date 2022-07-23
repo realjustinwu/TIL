@@ -1,0 +1,9 @@
+theme: jekyll-theme-cayman
+
+title: 学习笔记
+description: 这里记录每天学到的内容，记录各种语言，各种工具的使用。
+
+github:
+  is_project_page: false
+
+#google_analytics: G-MKPQNG88DD
