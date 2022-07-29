@@ -52,16 +52,19 @@ API 注释和实现注释。
     文件内容的概要，应该确定代码的主要用例和目标受众。
 
     <details><summary>例子</summary>
-    // -----------------------------------------------------------------------------<br>
-    // str_cat.h<br>
-    // -----------------------------------------------------------------------------<br>
-    //<br>
-    // This header file contains functions for efficiently concatenating and appending<br>
-    // strings: StrCat() and StrAppend(). Most of the work within these routines is<br>
-    // actually handled through use of a special AlphaNum type, which was designed<br>
-    // to be used as a parameter type that efficiently manages conversion to<br>
-    // strings and avoids copies in the above operations.<br>
-    ... ...<br>
+
+    ```text
+    -----------------------------------------------------------------------------
+    // str_cat.h
+    // -----------------------------------------------------------------------------
+    //
+    // This header file contains functions for efficiently concatenating and appending
+    // strings: StrCat() and StrAppend(). Most of the work within these routines is
+    // actually handled through use of a special AlphaNum type, which was designed
+    // to be used as a parameter type that efficiently manages conversion to
+    // strings and avoids copies in the above operations.
+    ... ...
+    ```
     </details>
 
 2. 类注释
@@ -69,13 +72,16 @@ API 注释和实现注释。
     描述该类/结构、该类的重要方法以及该类的目的。类的注释应该是 "名词化 "的，强调其对象方面。
 
     <details><summary>例子</summary>
-    // -----------------------------------------------------------------------------<br>
-    // AlphaNum<br>
-    // -----------------------------------------------------------------------------<br>
-    //<br>
-    // The AlphaNum class acts as the main parameter type for StrCat() and<br>
-    // StrAppend(), providing efficient conversion of numeric, boolean, and<br>
-    // hexadecimal values (through the Hex type) into strings.<br>
+
+    ```text
+    // -----------------------------------------------------------------------------
+    // AlphaNum
+    // -----------------------------------------------------------------------------
+    //
+    // The AlphaNum class acts as the main parameter type for StrCat() and
+    // StrAppend(), providing efficient conversion of numeric, boolean, and
+    // hexadecimal values (through the Hex type) into strings.
+    ```
     </details>
 
 3. 函数注释
@@ -83,11 +89,14 @@ API 注释和实现注释。
     函数注释应该强调其使用的主动性，以一个指示性动词开始，描述函数的作用和返回的内容。
 
     <details><summary>例子</summary>
-    // StrCat()<br>
-    //<br>
-    // Merges the given strings or numbers, using no delimiter(s),<br>
-    // returning the merged result as a string.<br>
-    ... ...<br>
+
+    ```text
+    // StrCat()
+    //
+    // Merges the given strings or numbers, using no delimiter(s),
+    // returning the merged result as a string.
+    ... ...
+    ```
     </details>
 
 ### 设计文档
@@ -104,23 +113,31 @@ API 注释和实现注释。
 对用户需要执行的每个操作进行编号。不需要操作的步骤，提示等，不能进行编号。
 
 <details><summary>例子</summary>
-1. 从我们的服务器下载软件包，网址为http://example.com:<br>
-```shell<br>
-$curl -I http://example.com<br>
-```<br>
-2. 将shell脚本复制到主目录：<br>
-```shell<br>
-$cp foobar.sh ~<br>
-```<br>
-3. 在主目录中执行shell脚本：<br>
-```shell<br>
-$cd ~; foobar.sh<br>
-```<br>
-foobar系统将首先与身份验证系统通信。经过身份验证后，foobar将引导一个名为“baz”的新数据库并打开一个输入shell。<br>
-4. 通过在命令行上执行SQL命令来测试“baz”：<br>
-```shell<br>
-baz:$CREATE DATABASE my_foobar_db;<br>
-```<br>
+
+1. 从我们的服务器下载软件包，网址为http://example.com:
+
+    ```shell
+    $curl -I http://example.com
+    ```
+
+2. 将shell脚本复制到主目录：
+
+    ```shell
+    $cp foobar.sh ~
+    ```
+
+3. 在主目录中执行shell脚本：
+
+    ```shell
+    $cd ~; foobar.sh
+    ```
+    foobar系统将首先与身份验证系统通信。经过身份验证后，foobar将引导一个名为“baz”的新数据库并打开一个输入shell。
+
+4. 通过在命令行上执行SQL命令来测试“baz”：
+
+    ```shell
+    baz:$CREATE DATABASE my_foobar_db;
+    ```
 </details>
 
 ### 概念文档
