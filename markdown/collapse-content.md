@@ -1,6 +1,6 @@
-# Markdown 收缩内容
+# Markdown 收起内容
 
-## 收缩 content
+## 收起 content
 
 ```markdown
 <details><summary>Show</summary>
@@ -20,7 +20,7 @@
 </div>
 </details>
 
-## 收缩代码
+## 收起代码
 
 注意：代码的上分需要一个空行。
 
@@ -46,11 +46,17 @@ int main() {
 ```
 </details>
 
-<details>
-	<summary>Click to expand this section!</summary>
-	<h5>A nice Javascript pitfall!</h5>
+## 缩进并收起代码
+
+1. 缩进之后收藏代码
+	<details>
+	<summary>Show</summary>
+	A nice Hello world!
 
 	```javascript
-	console.log(['1', '7', '11'].map(parseInt));
+	int main() {
+		printf("Hello World!");
+		return 0;
+	}
 	```
-</details>
+	</details>
