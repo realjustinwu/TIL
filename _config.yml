@@ -1,7 +1,11 @@
 plugins:
   - jekyll-spaceship
 
-repository: realjustinwu/realjustinwu.github.io
+title: 学习笔记
+author: Justin Wu
+copyright: Copyright © 2022-2023
+repository: realjustinwu/www.realjustinwu.com
+baseurl: "/TIL"
 
 # Where things are
 jekyll-spaceship:

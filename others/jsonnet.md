@@ -16,19 +16,17 @@ jsonnet -y <file> # 输出 yaml 文件，可以是数组
 ```
 
 <details><summary>例子：jsonnet -e 'code' </summary>
-
-```shell
+{% highlight shell %}
 $ jsonnet -e '{ x: 1 , y: self.x + 1 } { x: 10 }'
 {
    "x": 10,
    "y": 11
 }
-```
+{% endhighlight %}
 </details>
 
 <details><summary>例子：jsonnet file</summary>
-
-```shell
+{% highlight shell %}
 $ jsonnet landingpage.jsonnet
 {
    "person1": {
@@ -40,12 +38,11 @@ $ jsonnet landingpage.jsonnet
       "welcome": "Hello Bob!"
    }
 }
-```
+{% endhighlight %}
 </details>
 
 <details><summary>例子：jsonnet -m . file</summary>
-
-```shell
+{% highlight shell %}
 $ jsonnet -m . multiple_output.jsonnet
 a.json
 b.json
@@ -60,11 +57,10 @@ $ cat b.json
    "x": 1,
    "y": 2
 }
-```
+{% endhighlight %}
 </details>
 <details><summary>例子：jsonnet -y file</summary>
-
-```shell
+{% highlight shell %}
 $ jsonnet -y yaml_stream.jsonnet
 ---
 {
@@ -76,7 +72,7 @@ $ jsonnet -y yaml_stream.jsonnet
    "x": 1,
    "y": 2
 }
-```
+{% endhighlight %}
 </details>
 
 ## Jsonnet 语言
@@ -94,7 +90,5 @@ Jsonnet 有7种类型的值。
 - function - 纯函数，有输入参数和返回值
 - array - 数组
 - object - JSON 对象
-
-
 
 ## 标准库

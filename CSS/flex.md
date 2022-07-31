@@ -53,7 +53,7 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
   - [order: \<integer>: 项目的排列顺序](#order-integer-项目的排列顺序)
   - [flex-grow: \<number>: 定义项目的放大比例](#flex-grow-number-定义项目的放大比例)
   - [flex-shrink: \<number>: 定义了项目的缩小比例](#flex-shrink-number-定义了项目的缩小比例)
-  - [flex-basis: \<length> | auto: 在分配多余空间之前，项目占据的主轴空间](#flex-basis-length--auto-在分配多余空间之前项目占据的主轴空间)
+  - [flex-basis: \<length> or auto 在分配多余空间之前，项目占据的主轴空间](#flex-basis-length-or-auto-在分配多余空间之前项目占据的主轴空间)
   - [flex: flex-grow + flex-shrink + flex-basis](#flex-flex-grow--flex-shrink--flex-basis)
   - [align-self: item 的对齐方式](#align-self-item-的对齐方式)
 
@@ -83,39 +83,39 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
 1. `flex-direction: row` （默认值）：主轴为水平方向，起点在左端。
     <details><summary>Show</summary>
     <div class="box box-row">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
-	</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
+    </div>
     </details>
 
 2. `flex-direction: row-reverse` 主轴为水平方向，起点在右端。
     <details><summary>Show</summary>
     <div class="box box-rowr">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
-	</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
+    </div>
     </details>
 
 3. `flex-direction: column` 主轴为垂直方向，起点在上沿。
     <details><summary>Show</summary>
     <div class="box box-column">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
-		<div class="box-item-sm">4</div>
-	</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
+        <div class="box-item-sm">4</div>
+    </div>
     </details>
 
 4. `flex-direction: column-reverse` 主轴为垂直方向，起点在下沿。
     <details><summary>Show</summary>
     <div class="box box-columnr">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
-		<div class="box-item-sm">4</div>
-	</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
+        <div class="box-item-sm">4</div>
+    </div>
     </details>
 
 ### flex-wrap: 是否换行
@@ -137,35 +137,35 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
 1. `flex-wrap: nowrap` （默认）：不换行
     <details><summary>Show</summary>
     <div class="box box-row box-nowrap">
-		<div class="box-item">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item">3</div>
-		<div class="box-item">4</div>
+        <div class="box-item">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item">3</div>
+        <div class="box-item">4</div>
         <div class="box-item">5</div>
         <div class="box-item">6</div>
-	</div>
+    </div>
     </details>
 
 1. `flex-wrap: wrap` 换行，第一行在上方。
     <details><summary>Show</summary>
     <div class="box box-row box-wrap">
-		<div class="box-item">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item">3</div>
-		<div class="box-item">4</div>
+        <div class="box-item">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item">3</div>
+        <div class="box-item">4</div>
         <div class="box-item">5</div>
         <div class="box-item">6</div>
-	</div>
+    </div>
     </details>
 3. `flex-wrap: wrap-reverse`  换行，第一行在下方。
     <details><summary>Show</summary>
     <div class="box box-row box-wrapr">
-		<div class="box-item">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item">3</div>
-		<div class="box-item">4</div>
+        <div class="box-item">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item">3</div>
+        <div class="box-item">4</div>
         <div class="box-item">5</div>
-	</div>
+    </div>
     </details>
 
 ### flex-flow: direction+wrap
@@ -184,23 +184,23 @@ flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，�
 1. `flex-flow: row wrap` 水平，换行
     <details><summary>Show</summary>
     <div class="box box-row-wrap">
-		<div class="box-item">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item">3</div>
-		<div class="box-item">4</div>
+        <div class="box-item">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item">3</div>
+        <div class="box-item">4</div>
         <div class="box-item">5</div>
-	</div>
+    </div>
     </details>
 
 2. `flex-flow: row nowrap` 水平，不换行
     <details><summary>Show</summary>
     <div class="box box-row-nowrap">
-		<div class="box-item">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item">3</div>
+        <div class="box-item">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item">3</div>
         <div class="box-item">4</div>
         <div class="box-item">5</div>
-	</div>
+    </div>
     </details>
 
 ### justify-content: 主轴上的对齐方式
@@ -228,56 +228,56 @@ justify-content 属性定义了项目在主轴上的对齐方式。
 1. `justify-content: flex-start` 左对齐
     <details><summary>Show</summary>
     <div class="box box-j-start">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 2. `justify-content: flex-end` 右对齐
     <details><summary>Show</summary>
     <div class="box box-j-end">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 3. `justify-content: center` 居中
     <details><summary>Show</summary>
     <div class="box box-j-center">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 4. `justify-content: space-between` 两端对齐
     <details><summary>Show</summary>
     <div class="box box-j-between">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 5. `justify-content: space-around` 左对齐
     <details><summary>Show</summary>
     <div class="box box-j-around">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 ### align-items: 交叉轴上的对齐方式
@@ -305,56 +305,56 @@ align-items 属性定义项目在交叉轴上如何对齐。
 1. `align-items: flex-start` 交叉轴的起点对齐
     <details><summary>Show</summary>
     <div class="box box-align-item-start">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 2. `align-items: flex-end` 交叉轴的终点对齐
     <details><summary>Show</summary>
     <div class="box box-align-item-end">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 3. `align-items: center` 交叉轴的中点对齐
     <details><summary>Show</summary>
     <div class="box box-align-item-center">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 4. `align-items: baseline` 项目的第一行文字的基线对齐
     <details><summary>Show</summary>
     <div class="box box-align-item-baseline">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
     </details>
 
 5. `align-items: stretch` 如果项目未设置高度或设为auto，将占满整个容器的高度
     <details><summary>Show</summary>
     <div class="box box-align-item-stretch">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item">4</div>
         <div class="box-item-auto">5</div>
-	</div>
+    </div>
     </details>
     
 ### align-content: 多根轴线的对齐方式
@@ -391,91 +391,91 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 1. `align-content: flex-start` 与交叉轴的起点对齐
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-start">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 2. `align-content: flex-end` 与交叉轴的终点对齐
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-end">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 3. `align-content: center` 与交叉轴的中点对齐
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-center">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 4. `align-content: space-between` 与交叉轴两端对齐，轴线之间的间隔平均分布
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-between">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 5. `align-content: space-around` 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-around">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 6. `align-content: stretch` 轴线占满整个交叉轴。
     <details><summary>Show</summary>
     <div class="box box-align-content-container box-align-content-stretch">
-		<div class="box-item-sm">1</div>
-		<div class="box-item-sm">2</div>
-		<div class="box-item-sm">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item-sm">2</div>
+        <div class="box-item-sm">3</div>
         <div class="box-item-sm">4</div>
         <div class="box-item-sm">5</div>
         <div class="box-item-sm">6</div>
-		<div class="box-item-sm">7</div>
+        <div class="box-item-sm">7</div>
         <div class="box-item-sm">8</div>
         <div class="box-item-auto">auto</div>
-	</div>
+    </div>
     </details>
 
 ## 项目的属性
@@ -503,11 +503,11 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item-sm item_order_100">100</div>
-		<div class="box-item-sm item_order__1">-1</div>
+        <div class="box-item-sm item_order__1">-1</div>
         <div class="box-item-sm item_order_9">9</div>
-		<div class="box-item-sm item_order_0">0</div>
+        <div class="box-item-sm item_order_0">0</div>
         <div class="box-item-sm item_order_1">1</div>
-	</div>
+    </div>
 </details>
 
 ### flex-grow: \<number>: 定义项目的放大比例
@@ -529,19 +529,19 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item-sm item_grow_0">0</div>
-		<div class="box-item-sm item_grow_0">0</div>
         <div class="box-item-sm item_grow_0">0</div>
-	</div>
+        <div class="box-item-sm item_grow_0">0</div>
+    </div>
         <div class="box box-row">
         <div class="box-item-sm item_grow_1">1</div>
-		<div class="box-item-sm item_grow_1">1</div>
         <div class="box-item-sm item_grow_1">1</div>
-	</div>
+        <div class="box-item-sm item_grow_1">1</div>
+    </div>
         <div class="box box-row">
         <div class="box-item-sm item_grow_0">0</div>
-		<div class="box-item-sm item_grow_1">1</div>
+        <div class="box-item-sm item_grow_1">1</div>
         <div class="box-item-sm item_grow_2">2</div>
-	</div>
+    </div>
 </details>
 
 
@@ -561,22 +561,22 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item item_shrink_0">0</div>
-		<div class="box-item item_shrink_0">0</div>
         <div class="box-item item_shrink_0">0</div>
-	</div>
+        <div class="box-item item_shrink_0">0</div>
+    </div>
     <div class="box box-row">
         <div class="box-item item_shrink_1">1</div>
-		<div class="box-item item_shrink_1">1</div>
         <div class="box-item item_shrink_1">1</div>
-	</div>
+        <div class="box-item item_shrink_1">1</div>
+    </div>
     <div class="box box-row">
         <div class="box-item item_shrink_0">0</div>
-		<div class="box-item item_shrink_1">1</div>
         <div class="box-item item_shrink_1">1</div>
-	</div>
+        <div class="box-item item_shrink_1">1</div>
+    </div>
 </details>
 
-### flex-basis: \<length> | auto: 在分配多余空间之前，项目占据的主轴空间
+### flex-basis: \<length> or auto 在分配多余空间之前，项目占据的主轴空间
 
 浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
 
@@ -594,12 +594,12 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item item_basis_auto">auto</div>
-		<div class="box-item item_basis_100">100</div>
-	</div>
+        <div class="box-item item_basis_100">100</div>
+    </div>
     <div class="box box-row">
         <div class="box-item item_basis_100">100</div>
         <div class="box-item item_basis_auto">auto</div>
-	</div>
+    </div>
 </details>
 
 ### flex: flex-grow + flex-shrink + flex-basis
@@ -620,24 +620,24 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
     <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item item_flex_auto">auto</div>
-		<div class="box-item item_flex_auto">auto</div>
-	</div>
+        <div class="box-item item_flex_auto">auto</div>
+    </div>
     <div class="box box-row">
         <div class="box-item-sm item_flex_auto">auto</div>
-		<div class="box-item-sm item_flex_auto">auto</div>
-	</div>
+        <div class="box-item-sm item_flex_auto">auto</div>
+    </div>
     </details>
 
 2. flex: none
     <details><summary>Show</summary>
     <div class="box box-row">
         <div class="box-item item_flex_none">non</div>
-		<div class="box-item item_flex_none">non</div>
-	</div>
+        <div class="box-item item_flex_none">non</div>
+    </div>
     <div class="box box-row">
         <div class="box-item-sm item_flex_none">non</div>
-		<div class="box-item-sm item_flex_none">non</div>
-	</div>
+        <div class="box-item-sm item_flex_none">non</div>
+    </div>
     </details>
 
 ### align-self: item 的对齐方式
@@ -652,10 +652,10 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
 
 <details><summary>Show</summary>
     <div class="box box-align-item-start">
-		<div class="box-item-sm">1</div>
-		<div class="box-item">2</div>
-		<div class="box-item-sm item_align_self">3</div>
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm item_align_self">3</div>
         <div class="box-item">4</div>
         <div class="box-item-sm">5</div>
-	</div>
+    </div>
 </details>
