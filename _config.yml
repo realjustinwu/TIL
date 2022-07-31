@@ -6,7 +6,8 @@ author: Justin Wu
 copyright: Copyright © 2022-2023
 repository: realjustinwu/www.realjustinwu.com
 baseurl: "/TIL"
-url: "https://www.realjustinwutop.com"
+url: "https://www.realjustinwu.com"
+google_analytics: "G-MKPQNG88DD"
 
 # Where things are
 jekyll-spaceship:
