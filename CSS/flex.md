@@ -63,7 +63,7 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
 
 决定主轴的方向（即项目的排列方向）
 
-![](./flex-container.png)
+![flex-container](./flex-container.png)
 
 <style>
 .box-row {
@@ -146,7 +146,7 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
     </div>
     </details>
 
-1. `flex-wrap: wrap` 换行，第一行在上方。
+2. `flex-wrap: wrap` 换行，第一行在上方。
     <details><summary>Show</summary>
     <div class="box box-row box-wrap">
         <div class="box-item">1</div>
@@ -157,6 +157,7 @@ Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型�
         <div class="box-item">6</div>
     </div>
     </details>
+
 3. `flex-wrap: wrap-reverse`  换行，第一行在下方。
     <details><summary>Show</summary>
     <div class="box box-row box-wrapr">
@@ -356,11 +357,10 @@ align-items 属性定义项目在交叉轴上如何对齐。
         <div class="box-item-auto">5</div>
     </div>
     </details>
-    
+
 ### align-content: 多根轴线的对齐方式
 
 align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
-
 
 <style>
 .box-align-content-container{
@@ -543,7 +543,6 @@ align-content属性定义了多根轴线的对齐方式。如果项目只有一�
         <div class="box-item-sm item_grow_2">2</div>
     </div>
 </details>
-
 
 ### flex-shrink: \<number>: 定义了项目的缩小比例
 

@@ -1,7 +1,5 @@
 # 首页
 
-<hr>
-
 ## 分类
 
 - [分类](#分类)
@@ -10,7 +8,8 @@
   - [Json](#json)
   - [Documents](#documents)
 
-<hr>
+---
+---
 
 ### Markdown
 
