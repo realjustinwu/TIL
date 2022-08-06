@@ -3,77 +3,11 @@
 Jsonnet 是模版语言，是 Json 的简单拓展。[例子](https://github.com/google/jsonnet/tree/master/examples)  
 主要用来为大型复杂的服务，跟编程一样，管理所有的配置。
 
-## Jsonnet 常用命令
-
-执行 jsonnet 命令行，可以把模版生成到标准输出或者文件。
-
-```shell
-jsonnet -e <code> # 从标准输入获取模版
-jsonnet <file> # 从文件获取模版
-jsonnet <file> -o output.file # 输出到文件
-jsonnet -m . <file> # 输出到多个文件
-jsonnet -y <file> # 输出 yaml 文件，可以是数组
-```
-
-<details><summary>例子：jsonnet -e 'code' </summary>
-{% highlight shell %}
-$ jsonnet -e '{ x: 1 , y: self.x + 1 } { x: 10 }'
-{
-   "x": 10,
-   "y": 11
-}
-{% endhighlight %}
-</details>
-
-<details><summary>例子：jsonnet file</summary>
-{% highlight shell %}
-$ jsonnet landingpage.jsonnet
-{
-   "person1": {
-      "name": "Alice",
-      "welcome": "Hello Alice!"
-   },
-   "person2": {
-      "name": "Bob",
-      "welcome": "Hello Bob!"
-   }
-}
-{% endhighlight %}
-</details>
-
-<details><summary>例子：jsonnet -m . file</summary>
-{% highlight shell %}
-$ jsonnet -m . multiple_output.jsonnet
-a.json
-b.json
-$ cat a.json
-Output:
-{
-   "x": 1,
-   "y": 2
-}
-$ cat b.json
-{
-   "x": 1,
-   "y": 2
-}
-{% endhighlight %}
-</details>
-<details><summary>例子：jsonnet -y file</summary>
-{% highlight shell %}
-$ jsonnet -y yaml_stream.jsonnet
----
-{
-   "x": 1,
-   "y": 2
-}
----
-{
-   "x": 1,
-   "y": 2
-}
-{% endhighlight %}
-</details>
+- [Jsonnet 语言](#jsonnet-语言)
+  - [值](#值)
+  - [可见性](#可见性)
+  - [字段继承](#字段继承)
+- [标准库](#标准库)
 
 ## Jsonnet 语言
 
@@ -235,4 +169,13 @@ Output:
 }
 {% endhighlight %}
 </details>
+
+### 字段继承
+
+- `:`: 直接使用后一个 obj 的字段完全代替上一个 obj 的字段
+- `+:`: 把后一个 obj 的字段，merge 到上一个 obj。如果是 array 就拼接到尾部
+- `+::`: 同上，并隐藏字段
+- `+:::`: 同上，并强制显示
+
 ## 标准库
+

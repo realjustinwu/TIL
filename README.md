@@ -22,7 +22,8 @@
 
 ### Json
 
-- [Jsonnet](others/jsonnet.md)
+- [Jsonnet 语言](others/jsonnet.md)
+- [Jsonnet 入门](others/jsonnet-tutorial.md)
 
 ### Documents
 
