@@ -8,6 +8,12 @@
   - [函数](#函数)
   - [条件语句](#条件语句)
   - [数组](#数组)
+  - [imports](#imports)
+  - [Errors](#errors)
+  - [参数化配置](#参数化配置)
+    - [外部变量](#外部变量)
+    - [顶层参数](#顶层参数)
+  - [面相对象](#面相对象)
 - [Jsonnet 常用命令](#jsonnet-常用命令)
 
 ## Jsonnet 句法
@@ -182,6 +188,70 @@ local object = {
 
 ### 数组
 
+<details><summary>数组</summary>
+{% highlight jsonnet %}
+local arr = std.range(5, 8);
+{
+    array1: [x + 3 for x in arr],
+    evens: [x for x in arr if x % 2 == 0],
+    evens_and_odds: ['%d-%d' % [x, y]
+      for x in arr if x % 2 == 0
+      for y in arr if y % 2 == 1
+    ],
+}
+{% endhighlight %}
+</details>
+
+### imports
+
+1. import 跟 copy 代码一样的效果
+2. 用于 import 的代码，使用后缀 `.labjsonnet`
+3. 原生的 json 也可以被导入
+4. 被导入的文件格式是 utf-8
+
+```jsonnet
+local martinis = import 'martinis.libsonnet';
+```
+
+### Errors
+
+1. 抛出异常: `error "foo"`
+2. 检查条件: `asert "foo"`
+3. 检查条件并提示: `asert "foo": "Mesage"`
+
+### 参数化配置
+
+#### 外部变量
+
+```jsonnet
+# jsonnet --ext-str prefix="Happy Hour " \
+#        --ext-code brunch=true ...
+
+{
+ 'brunch': std.extVar('brunch'),
+ 'prefix': std.extVar('prefix')
+}
+#Output: { "brunch": true, "prefix": "Happy Hour "}
+```
+
+#### 顶层参数
+
+```jsonnet
+# jsonnet --tla-str prefix="Happy Hour " \
+#        --tla-code brunch=true ...
+
+# 顶层参数，可以有默认值
+function(brunch=false, prefix) {
+    'a': true
+}
+#Output: { "brunch": true }
+```
+
+### 面相对象
+
+1. 使用 `+` 会用右侧对象的字段，替换左侧对象的字段
+2. 使用 `self` 指向当前对象
+3. 使用 super 指向父对象
 
 ## Jsonnet 常用命令
 
