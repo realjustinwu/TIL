@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Jsonnet | 学习笔记</title>
+<meta name="generator" content="Jekyll v3.9.2">
+<meta property="og:title" content="Jsonnet">
+<meta name="author" content="Justin Wu">
+<meta property="og:locale" content="en_US">
+<link rel="canonical" href="https://www.realjustinwu.com/TIL/others/jsonnet.html">
+<meta property="og:url" content="https://www.realjustinwu.com/TIL/others/jsonnet.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Jsonnet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Justin Wu"},"headline":"Jsonnet","url":"https://www.realjustinwu.com/TIL/others/jsonnet.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/TIL/assets/css/style.css?v=ef0e67f59465ca9ca870982940a65c8d23fc7ce5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'G-MKPQNG88DD', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/TIL/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.realjustinwu.com/TIL/">学习笔记</a></h1>
+      
+
+      <h1 id="jsonnet">Jsonnet</h1>
+
+<p>Jsonnet 是模版语言，是 Json 的简单拓展。<a href="https://github.com/google/jsonnet/tree/master/examples">例子</a><br>
+主要用来为大型复杂的服务，跟编程一样，管理所有的配置。</p>
+
+<ul>
+  <li>
+<a href="#jsonnet-%E8%AF%AD%E8%A8%80">Jsonnet 语言</a>
+    <ul>
+      <li><a href="#%E5%80%BC">值</a></li>
+      <li><a href="#%E5%8F%AF%E8%A7%81%E6%80%A7">可见性</a></li>
+      <li><a href="#%E5%AD%97%E6%AE%B5%E7%BB%A7%E6%89%BF">字段继承</a></li>
+    </ul>
+  </li>
+  <li><a href="#%E6%A0%87%E5%87%86%E5%BA%93">标准库</a></li>
+</ul>
+
+<h2 id="jsonnet-语言">Jsonnet 语言</h2>
+
+<p>Jsonnet 是一种完整的纯函数式编程语言。（跟命令式语言的最大区别是，定义东西是什么，而不是能做什么）。</p>
+
+<h3 id="值">值</h3>
+
+<p>Jsonnet 有7种类型的值。</p>
+
+<ul>
+  <li>null – 全局唯一的值（空）</li>
+  <li>boolean – true 或者 false.</li>
+  <li>string – Unicode strings</li>
+  <li>number – IEEE754 64-bit 浮点数</li>
+  <li>function - 纯函数，有输入参数和返回值</li>
+  <li>array - 数组</li>
+  <li>object - JSON 对象</li>
+</ul>
+
+<details><summary>function 例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">func</span> <span class="p">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="nx">x</span> <span class="err">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">local</span> <span class="nx">func</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">=</span> <span class="nx">x</span> <span class="err">*</span> <span class="mi">2</span><span class="p">;</span> <span class="c1"># 同上</span>
+<span class="nx">func</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="k">local</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">=</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="nx">x</span> <span class="p">+</span> <span class="nx">y</span><span class="p">;</span> <span class="c1"># 带默认参数</span>
+<span class="p">[</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">=</span><span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">=</span><span class="mi">1</span><span class="p">),</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">y</span><span class="p">=</span><span class="mi">1</span><span class="p">,</span> <span class="nx">x</span><span class="p">=</span><span class="mi">1</span><span class="p">),</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">]</span></code></pre></figure>
+
+</details>
+
+<details><summary>Array 例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">arr</span> <span class="p">=</span> <span class="p">[</span><span class="k">error</span> <span class="s">"a"</span><span class="p">,</span> <span class="mi">2</span><span class="p">+</span><span class="mi">2</span><span class="p">,</span> <span class="k">error</span> <span class="s">"b"</span><span class="p">];</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="c1"># output: 4, 没有使用不会报错，函数式语言是懒加载的</span>
+<span class="p">[</span><span class="nx">x</span> <span class="err">*</span> <span class="nx">x</span> <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)];</span>
+<span class="c1"># output: [1, 4, 9]</span>
+<span class="p">[</span><span class="nx">x</span> <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="nx">x</span> <span class="p">%</span> <span class="mi">3</span> <span class="p">==</span> <span class="mi">0</span><span class="p">];</span> 
+<span class="c1"># output: [3, 6, 9]</span>
+<span class="p">[</span>
+  <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span>
+  <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">y</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="c1"># output: [[1,1], [1,2], [2,2]]</span>
+<span class="p">[</span>
+  <span class="nx">x</span>
+  <span class="k">for</span> <span class="nx">y</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="c1"># output: [1, 2, 1, 2]</span>
+<span class="p">[</span>
+  <span class="nx">x</span>
+  <span class="k">for</span> <span class="nx">y</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="c1"># output: [1, 1, 2, 2]</span>
+<span class="p">[</span>
+    <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">x</span> <span class="p">%</span> <span class="mi">3</span> <span class="p">==</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">y</span> <span class="k">in</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="k">if</span> <span class="nx">y</span> <span class="p">%</span> <span class="mi">2</span> <span class="p">==</span> <span class="mi">0</span>
+<span class="p">]</span></code></pre></figure>
+
+</details>
+
+<details><summary>Object 例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">obj</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="s">"foo"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"bar"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"arr"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s">"number"</span><span class="p">:</span> <span class="mi">10</span> <span class="p">+</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="p">[</span>
+  <span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">,</span>
+  <span class="nx">obj</span><span class="p">[</span><span class="s">"foo"</span><span class="p">],</span>
+  <span class="nx">obj</span><span class="p">[</span><span class="s">"f"</span> <span class="p">+</span> <span class="s">"oo"</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="c1"># output: [1, 1, 1]</span>
+<span class="k">local</span> <span class="nx">obj</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="p">:</span> <span class="s">"Alice"</span><span class="p">,</span>
+  <span class="nx">greeting</span><span class="p">:</span> <span class="s">"Hello, "</span> <span class="p">+</span> <span class="k">self</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="p">[</span>
+  <span class="nx">obj</span><span class="p">,</span>
+  <span class="nx">obj</span> <span class="p">+</span> <span class="p">{</span> <span class="nx">name</span><span class="p">:</span> <span class="s">"Bob"</span> <span class="p">},</span>
+  <span class="nx">obj</span> <span class="p">+</span> <span class="p">{</span> <span class="nx">greeting</span><span class="p">:</span> <span class="k">super</span><span class="p">.</span><span class="nx">greeting</span> <span class="p">+</span> <span class="s">"!"</span><span class="p">},</span>
+  <span class="nx">obj</span> <span class="p">+</span> <span class="p">{</span> <span class="nx">name</span><span class="p">:</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="nx">greeting</span><span class="p">:</span> <span class="k">super</span><span class="p">.</span><span class="nx">greeting</span> <span class="p">+</span> <span class="s">"!"</span><span class="p">},</span>
+<span class="p">]</span>
+<span class="c1"># output:</span>
+<span class="c1"># [</span>
+<span class="c1">#  {"greeting": "Hello, Alice", "name": "Alice"},</span>
+<span class="c1">#  {"greeting": "Hello, Bob", "name": "Bob"},</span>
+<span class="c1">#  {"greeting": "Hello, Alice!","name": "Alice"},</span>
+<span class="c1">#  {"greeting": "Hello, Bob!","name": "Bob"}</span>
+<span class="c1"># ]</span></code></pre></figure>
+
+</details>
+
+<details><summary>继承的例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">add</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="nx">params</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="p">:</span> <span class="k">error</span> <span class="s">"please provide argument a"</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">:</span> <span class="k">error</span> <span class="s">"please provide argument b"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">result</span><span class="p">:</span> <span class="k">self</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">a</span> <span class="p">+</span> <span class="k">self</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">b</span>
+<span class="p">};</span>
+<span class="p">(</span><span class="nx">add</span> <span class="p">+</span> <span class="p">{</span> <span class="nx">params</span><span class="p">:</span> <span class="p">{</span> <span class="nx">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span> <span class="p">}).</span><span class="nx">result</span>
+<span class="c1"># output: 3</span></code></pre></figure>
+
+</details>
+
+<details><summary>引用自身</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">obj</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="p">:</span> <span class="s">"Alice"</span><span class="p">,</span>
+  <span class="nx">greeting</span><span class="p">:</span> <span class="s">"Hello, "</span> <span class="p">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+<span class="p">};</span> <span class="nx">obj</span>
+<span class="c1"># output: {"greeting": "Hello, Alice","name": "Alice"}</span></code></pre></figure>
+
+</details>
+
+<h3 id="可见性">可见性</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">:</code> – 默认可见，除非父节点字段是隐藏的</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">::</code> – 隐藏</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">:::</code> – 强制可见</li>
+</ul>
+
+<details><summary>Show</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="p">{</span>
+  <span class="nx">default</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">default_then_hidden</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">hidden</span><span class="p">::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">hidden_then_default</span><span class="p">::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">hidden_then_visible</span><span class="p">::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">visible</span><span class="p">:::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">visible_then_hidden</span><span class="p">:::</span> <span class="s">"foo"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="p">+</span>
+<span class="p">{</span>
+  <span class="nx">default_then_hidden</span><span class="p">::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">hidden_then_default</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">hidden_then_visible</span><span class="p">:::</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="nx">visible_then_hidden</span><span class="p">::</span> <span class="s">"foo"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">Output</span><span class="p">:</span>
+<span class="p">{</span>
+  <span class="s">"default"</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="s">"hidden_then_visible"</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span>
+  <span class="s">"visible"</span><span class="p">:</span> <span class="s">"foo"</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="字段继承">字段继承</h3>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">:</code>: 直接使用后一个 obj 的字段完全代替上一个 obj 的字段</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">+:</code>: 把后一个 obj 的字段，merge 到上一个 obj。如果是 array 就拼接到尾部</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">+::</code>: 同上，并隐藏字段</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">+:::</code>: 同上，并强制显示</li>
+</ul>
+
+<h2 id="标准库">标准库</h2>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

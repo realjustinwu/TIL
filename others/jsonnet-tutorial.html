@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Jsonnet 入门 | 学习笔记</title>
+<meta name="generator" content="Jekyll v3.9.2">
+<meta property="og:title" content="Jsonnet 入门">
+<meta name="author" content="Justin Wu">
+<meta property="og:locale" content="en_US">
+<link rel="canonical" href="https://www.realjustinwu.com/TIL/others/jsonnet-tutorial.html">
+<meta property="og:url" content="https://www.realjustinwu.com/TIL/others/jsonnet-tutorial.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Jsonnet 入门">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Justin Wu"},"headline":"Jsonnet 入门","url":"https://www.realjustinwu.com/TIL/others/jsonnet-tutorial.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/TIL/assets/css/style.css?v=ef0e67f59465ca9ca870982940a65c8d23fc7ce5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'G-MKPQNG88DD', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/TIL/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.realjustinwu.com/TIL/">学习笔记</a></h1>
+      
+
+      <h1 id="jsonnet-入门">Jsonnet 入门</h1>
+
+<ul>
+  <li>
+<a href="#jsonnet-%E5%8F%A5%E6%B3%95">Jsonnet 句法</a>
+    <ul>
+      <li><a href="#%E5%8F%A5%E6%B3%95">句法</a></li>
+      <li><a href="#%E5%8F%98%E9%87%8F">变量</a></li>
+      <li><a href="#%E5%BC%95%E7%94%A8">引用</a></li>
+      <li><a href="#%E8%BF%90%E7%AE%97">运算</a></li>
+      <li><a href="#%E5%87%BD%E6%95%B0">函数</a></li>
+      <li><a href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5">条件语句</a></li>
+      <li><a href="#%E6%95%B0%E7%BB%84">数组</a></li>
+      <li><a href="#imports">imports</a></li>
+      <li><a href="#errors">Errors</a></li>
+      <li>
+<a href="#%E5%8F%82%E6%95%B0%E5%8C%96%E9%85%8D%E7%BD%AE">参数化配置</a>
+        <ul>
+          <li><a href="#%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F">外部变量</a></li>
+          <li><a href="#%E9%A1%B6%E5%B1%82%E5%8F%82%E6%95%B0">顶层参数</a></li>
+        </ul>
+      </li>
+      <li><a href="#%E9%9D%A2%E7%9B%B8%E5%AF%B9%E8%B1%A1">面相对象</a></li>
+    </ul>
+  </li>
+  <li><a href="#jsonnet-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">Jsonnet 常用命令</a></li>
+</ul>
+
+<h2 id="jsonnet-句法">Jsonnet 句法</h2>
+
+<h3 id="句法">句法</h3>
+
+<ol>
+  <li>字段如果没有空格，可以不需要引号</li>
+  <li>array/object 尾部用 <code class="language-plaintext highlighter-rouge">,</code>
+</li>
+  <li>字符串使用 <code class="language-plaintext highlighter-rouge">"</code> 或者 <code class="language-plaintext highlighter-rouge">'</code>
+</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">|||</code> 定义多行的文本</li>
+  <li>Verbatim strings @’foo’ and @”foo” are for single lines.</li>
+</ol>
+
+<h3 id="变量">变量</h3>
+
+<ol>
+  <li>使用 local 定义变量</li>
+  <li>在 json 内部定义变量，使用 <code class="language-plaintext highlighter-rouge">,</code> 后缀</li>
+  <li>在 json 外部定义变量，使用 <code class="language-plaintext highlighter-rouge">;</code> 后缀</li>
+</ol>
+
+<details><summary>例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">house_rum</span> <span class="p">=</span> <span class="s">'Banks Rum'</span><span class="p">;</span>
+<span class="p">{</span>
+  <span class="k">local</span> <span class="nx">name</span> <span class="p">=</span> <span class="s">'Justin'</span><span class="p">,</span>
+  <span class="nx">msg</span><span class="p">:</span> <span class="s">'hello '</span> <span class="p">+</span> <span class="nx">name</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="c1"># output: </span>
+<span class="p">{</span>
+  <span class="s">"msg"</span><span class="p">:</span> <span class="s">"hello Justin"</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="引用">引用</h3>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">self</code> 引用当前对象</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">$</code> 引用根对象</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">['foo'] </code> 查找字段</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">.foo</code> 同上，如果字段没有空格等</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">[10]</code> 查找数组的元素</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">[10:20:2]</code> 切片，同 python</li>
+  <li>字符串也是数组，可以切片或者查找</li>
+</ol>
+
+<details><summary>例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="p">{</span>
+    <span class="k">local</span> <span class="nx">var_a</span><span class="p">=</span> <span class="s">'var a'</span><span class="p">,</span>
+    <span class="nx">var_array</span><span class="p">::</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span>
+    <span class="nx">field_a</span><span class="p">:</span> <span class="s">'field a'</span><span class="p">,</span>
+    <span class="nx">inner_obj</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">var_a</span><span class="p">:</span> <span class="nx">var_a</span><span class="p">,</span>
+        <span class="nx">var_b</span><span class="p">:</span> <span class="k">$</span><span class="p">.</span><span class="nx">field_a</span><span class="p">,</span>
+        <span class="nx">var_c</span><span class="p">:</span> <span class="k">$</span><span class="p">[</span><span class="s">'field_a'</span><span class="p">],</span>
+        <span class="nx">var_d</span><span class="p">:</span> <span class="k">$</span><span class="p">.</span><span class="nx">var_array</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+        <span class="nx">var_e</span><span class="p">:</span> <span class="k">$</span><span class="p">.</span><span class="nx">var_array</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">},</span>
+   <span class="nx">var_a</span><span class="p">:</span> <span class="k">self</span><span class="p">.</span><span class="nx">field_a</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="c1"># Output:</span>
+<span class="p">{</span>
+  <span class="s">"field_a"</span><span class="p">:</span> <span class="s">"field a"</span><span class="p">,</span>
+  <span class="s">"inner_obj"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"var_a"</span><span class="p">:</span> <span class="s">"var a"</span><span class="p">,</span>
+    <span class="s">"var_b"</span><span class="p">:</span> <span class="s">"field a"</span><span class="p">,</span>
+    <span class="s">"var_c"</span><span class="p">:</span> <span class="s">"field a"</span><span class="p">,</span>
+    <span class="s">"var_d"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s">"var_e"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span> <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s">"var_a"</span><span class="p">:</span> <span class="s">"field a"</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="运算">运算</h3>
+
+<ol>
+  <li>浮点运算、二进制运算、位运算</li>
+  <li>
+    <ul>
+      <li>连接字符串</li>
+    </ul>
+  </li>
+  <li>字符串对比 <code class="language-plaintext highlighter-rouge">&lt;</code>
+</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">==</code> 相等运算</li>
+  <li>类似 python 的字符串格式化运算</li>
+</ol>
+
+<details><summary>例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="p">{</span>
+  <span class="nx">concat_array</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="p">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+  <span class="nx">concat_string</span><span class="p">:</span> <span class="s">'123'</span> <span class="p">+</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="nx">equality1</span><span class="p">:</span> <span class="mi">1</span> <span class="p">==</span> <span class="s">'1'</span><span class="p">,</span>
+  <span class="nx">equality2</span><span class="p">:</span> <span class="p">[{},</span> <span class="p">{</span> <span class="nx">x</span><span class="p">:</span> <span class="mi">3</span> <span class="err">-</span> <span class="mi">1</span> <span class="p">}]</span> <span class="p">==</span> <span class="p">[{},</span> <span class="p">{</span> <span class="nx">x</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}],</span>
+  <span class="nx">ex1</span><span class="p">:</span> <span class="mi">1</span> <span class="p">+</span> <span class="mi">2</span> <span class="err">*</span> <span class="mi">3</span> <span class="err">/</span> <span class="p">(</span><span class="mi">4</span> <span class="p">+</span> <span class="mi">5</span><span class="p">),</span>
+  <span class="c1">// Bitwise operations first cast to int.</span>
+  <span class="nx">ex2</span><span class="p">:</span> <span class="k">self</span><span class="p">.</span><span class="nx">ex1</span> <span class="err">|</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nx">ex3</span><span class="p">:</span> <span class="k">self</span><span class="p">.</span><span class="nx">ex1</span> <span class="p">%</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nx">ex4</span><span class="p">:</span> <span class="err">\</span><span class="p">(</span><span class="mi">4</span> <span class="err">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="err">&amp;&amp;</span> <span class="err">\</span><span class="p">(</span><span class="mi">1</span> <span class="err">&lt;</span><span class="p">=</span> <span class="mi">3</span><span class="p">)</span> <span class="err">\||</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="c1">// 合并两个 object</span>
+  <span class="nx">obj</span><span class="p">:</span> <span class="p">{</span> <span class="nx">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">+</span> <span class="p">{</span> <span class="nx">b</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">c</span><span class="p">:</span> <span class="mi">4</span> <span class="p">},</span>
+  <span class="c1">// 检查 object 是否包含字段</span>
+  <span class="nx">obj_member</span><span class="p">:</span> <span class="s">'foo'</span> <span class="k">in</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+  <span class="c1">// String 格式化</span>
+  <span class="nx">str1</span><span class="p">:</span> <span class="s">'The value of self.ex2 is '</span> <span class="p">+</span> <span class="k">self</span><span class="p">.</span><span class="nx">ex2</span> <span class="p">+</span> <span class="s">'.'</span><span class="p">,</span>
+  <span class="nx">str2</span><span class="p">:</span> <span class="s">'The value of self.ex2 is %g.'</span> <span class="p">%</span> <span class="k">self</span><span class="p">.</span><span class="nx">ex2</span><span class="p">,</span>
+  <span class="nx">str3</span><span class="p">:</span> <span class="s">'ex1=%0.2f, ex2=%0.2f'</span> <span class="p">%</span> <span class="p">[</span><span class="k">self</span><span class="p">.</span><span class="nx">ex1</span><span class="p">,</span> <span class="k">self</span><span class="p">.</span><span class="nx">ex2</span><span class="p">],</span>
+  <span class="c1">// By passing self, we allow ex1 and ex2 to</span>
+  <span class="c1">// be extracted internally.</span>
+  <span class="nx">str4</span><span class="p">:</span> <span class="s">'ex1=%(ex1)0.2f, ex2=%(ex2)0.2f'</span> <span class="p">%</span> <span class="k">self</span><span class="p">,</span>
+  <span class="c1">// Do textual templating of entire files:</span>
+  <span class="nx">str5</span><span class="p">:</span> <span class="err">\|\||</span>
+    <span class="nx">ex1</span><span class="p">=%(</span><span class="nx">ex1</span><span class="p">)</span><span class="mf">0.2</span><span class="nx">f</span>
+    <span class="nx">ex2</span><span class="p">=%(</span><span class="nx">ex2</span><span class="p">)</span><span class="mf">0.2</span><span class="nx">f</span>
+  <span class="err">\|\||</span> <span class="p">%</span> <span class="k">self</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="c1"># Output:</span>
+<span class="p">{</span>
+  <span class="s">"concat_array"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+  <span class="s">"concat_string"</span><span class="p">:</span> <span class="s">"1234"</span><span class="p">,</span>
+  <span class="s">"equality1"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="s">"equality2"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s">"ex1"</span><span class="p">:</span> <span class="mf">1.6666666666666665</span><span class="p">,</span>
+  <span class="s">"ex2"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s">"ex3"</span><span class="p">:</span> <span class="mf">1.6666666666666665</span><span class="p">,</span>
+  <span class="s">"ex4"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s">"obj"</span><span class="p">:</span> <span class="p">{</span> <span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">4</span> <span class="p">},</span>
+  <span class="s">"obj_member"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s">"str1"</span><span class="p">:</span> <span class="s">"The value of self.ex2 is 3."</span><span class="p">,</span>
+  <span class="s">"str2"</span><span class="p">:</span> <span class="s">"The value of self.ex2 is 3."</span><span class="p">,</span>
+  <span class="s">"str3"</span><span class="p">:</span> <span class="s">"ex1=1.67, ex2=3.00"</span><span class="p">,</span>
+  <span class="s">"str4"</span><span class="p">:</span> <span class="s">"ex1=1.67, ex2=3.00"</span><span class="p">,</span>
+  <span class="s">"str5"</span><span class="p">:</span> <span class="s">"ex1=1.67</span><span class="se">\n</span><span class="s">ex2=3.00</span><span class="se">\n</span><span class="s">"</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="函数">函数</h3>
+
+<details><summary>定义函数例子</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="c1">// 单行函数，跟python 一样</span>
+<span class="k">local</span> <span class="nx">my_function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">=</span><span class="mi">10</span><span class="p">)</span> <span class="p">=</span> <span class="nx">x</span> <span class="p">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="c1">// 多行函数</span>
+<span class="k">local</span> <span class="nx">multiline_function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">=</span>
+  <span class="k">local</span> <span class="nx">temp</span> <span class="p">=</span> <span class="nx">x</span> <span class="err">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">[</span><span class="nx">temp</span><span class="p">,</span> <span class="nx">temp</span> <span class="p">+</span> <span class="mi">1</span><span class="p">];</span>
+<span class="c1">// 通过对象引用函数</span>
+<span class="k">local</span> <span class="nx">object</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="nx">my_method</span><span class="p">(</span><span class="nx">x</span><span class="p">):</span> <span class="nx">x</span> <span class="err">*</span> <span class="nx">x</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="p">{</span>
+  <span class="c1">// 初始化的时候，执行函数</span>
+  <span class="nx">call_inline_function</span><span class="p">:</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="nx">x</span> <span class="err">*</span> <span class="nx">x</span><span class="p">)(</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="条件语句">条件语句</h3>
+
+<details><summary>定义条件语句</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="p">{</span>
+    <span class="k">local</span> <span class="nx">factor</span> <span class="p">=</span> <span class="k">if</span> <span class="nx">large</span> <span class="k">then</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="p">[]</span> <span class="p">+</span> <span class="p">(</span>
+    <span class="k">if</span> <span class="nx">virgin</span> 
+    <span class="k">then</span> <span class="p">[]</span> 
+    <span class="k">else</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">kind</span><span class="p">:</span> <span class="s">'Banks'</span><span class="p">,</span> <span class="nx">qty</span><span class="p">:</span> <span class="mf">1.5</span> <span class="err">*</span> <span class="nx">factor</span> <span class="p">},</span> <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="p">{</span>
+    <span class="nx">garnish</span><span class="p">:</span> <span class="k">if</span> <span class="nx">large</span> <span class="k">then</span> <span class="s">'Lime wedge'</span><span class="p">,</span>
+    <span class="p">[</span><span class="k">if</span> <span class="nx">salted</span> <span class="k">then</span> <span class="s">'garnish'</span><span class="p">]:</span> <span class="s">'Salt'</span><span class="p">,</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="数组">数组</h3>
+
+<details><summary>数组</summary>
+
+<figure class="highlight"><pre><code class="language-jsonnet" data-lang="jsonnet"><span class="k">local</span> <span class="nx">arr</span> <span class="p">=</span> <span class="nx">std</span><span class="p">.</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+<span class="p">{</span>
+    <span class="nx">array1</span><span class="p">:</span> <span class="p">[</span><span class="nx">x</span> <span class="p">+</span> <span class="mi">3</span> <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">],</span>
+    <span class="nx">evens</span><span class="p">:</span> <span class="p">[</span><span class="nx">x</span> <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">if</span> <span class="nx">x</span> <span class="p">%</span> <span class="mi">2</span> <span class="p">==</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="nx">evens_and_odds</span><span class="p">:</span> <span class="p">[</span><span class="s">'%d-%d'</span> <span class="p">%</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span>
+      <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">if</span> <span class="nx">x</span> <span class="p">%</span> <span class="mi">2</span> <span class="p">==</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">y</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">if</span> <span class="nx">y</span> <span class="p">%</span> <span class="mi">2</span> <span class="p">==</span> <span class="mi">1</span>
+    <span class="p">],</span>
+<span class="p">}</span></code></pre></figure>
+
+</details>
+
+<h3 id="imports">imports</h3>
+
+<ol>
+  <li>import 跟 copy 代码一样的效果</li>
+  <li>用于 import 的代码，使用后缀 <code class="language-plaintext highlighter-rouge">.labjsonnet</code>
+</li>
+  <li>原生的 json 也可以被导入</li>
+  <li>被导入的文件格式是 utf-8</li>
+</ol>
+
+<div class="language-jsonnet highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">local</span> <span class="nx">martinis</span> <span class="p">=</span> <span class="k">import</span> <span class="s">'martinis.libsonnet'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="errors">Errors</h3>
+
+<ol>
+  <li>抛出异常: <code class="language-plaintext highlighter-rouge">error "foo"</code>
+</li>
+  <li>检查条件: <code class="language-plaintext highlighter-rouge">asert "foo"</code>
+</li>
+  <li>检查条件并提示: <code class="language-plaintext highlighter-rouge">asert "foo": "Mesage"</code>
+</li>
+</ol>
+
+<h3 id="参数化配置">参数化配置</h3>
+
+<h4 id="外部变量">外部变量</h4>
+
+<div class="language-jsonnet highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># jsonnet --ext-str prefix="Happy Hour " \</span>
+<span class="c1">#        --ext-code brunch=true ...</span>
+
+<span class="p">{</span>
+ <span class="s">'brunch'</span><span class="p">:</span> <span class="nx">std</span><span class="p">.</span><span class="nx">extVar</span><span class="p">(</span><span class="s">'brunch'</span><span class="p">),</span>
+ <span class="s">'prefix'</span><span class="p">:</span> <span class="nx">std</span><span class="p">.</span><span class="nx">extVar</span><span class="p">(</span><span class="s">'prefix'</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">#Output: { "brunch": true, "prefix": "Happy Hour "}</span>
+</code></pre></div></div>
+
+<h4 id="顶层参数">顶层参数</h4>
+
+<div class="language-jsonnet highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># jsonnet --tla-str prefix="Happy Hour " \</span>
+<span class="c1">#        --tla-code brunch=true ...</span>
+
+<span class="c1"># 顶层参数，可以有默认值</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">brunch</span><span class="p">=</span><span class="kc">false</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s">'a'</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+<span class="c1">#Output: { "brunch": true }</span>
+</code></pre></div></div>
+
+<h3 id="面相对象">面相对象</h3>
+
+<ol>
+  <li>使用 <code class="language-plaintext highlighter-rouge">+</code> 会用右侧对象的字段，替换左侧对象的字段</li>
+  <li>使用 <code class="language-plaintext highlighter-rouge">self</code> 指向当前对象</li>
+  <li>使用 super 指向父对象</li>
+</ol>
+
+<h2 id="jsonnet-常用命令">Jsonnet 常用命令</h2>
+
+<p>执行 jsonnet 命令行，可以把模版生成到标准输出或者文件。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jsonnet <span class="nt">-e</span> &lt;code&gt; <span class="c"># 从标准输入获取模版</span>
+jsonnet &lt;file&gt; <span class="c"># 从文件获取模版</span>
+jsonnet &lt;file&gt; <span class="nt">-o</span> output.file <span class="c"># 输出到文件</span>
+jsonnet <span class="nt">-m</span> <span class="nb">.</span> &lt;file&gt; <span class="c"># 输出到多个文件</span>
+jsonnet <span class="nt">-y</span> &lt;file&gt; <span class="c"># 输出 yaml 文件，可以是数组</span>
+</code></pre></div></div>
+
+<details><summary>例子：jsonnet -e 'code' </summary>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>jsonnet <span class="nt">-e</span> <span class="s1">'{ x: 1 , y: self.x + 1 } { x: 10 }'</span>
+<span class="o">{</span>
+   <span class="s2">"x"</span>: 10,
+   <span class="s2">"y"</span>: 11
+<span class="o">}</span></code></pre></figure>
+
+</details>
+
+<details><summary>例子：jsonnet file</summary>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>jsonnet landingpage.jsonnet
+<span class="o">{</span>
+   <span class="s2">"person1"</span>: <span class="o">{</span>
+      <span class="s2">"name"</span>: <span class="s2">"Alice"</span>,
+      <span class="s2">"welcome"</span>: <span class="s2">"Hello Alice!"</span>
+   <span class="o">}</span>,
+   <span class="s2">"person2"</span>: <span class="o">{</span>
+      <span class="s2">"name"</span>: <span class="s2">"Bob"</span>,
+      <span class="s2">"welcome"</span>: <span class="s2">"Hello Bob!"</span>
+   <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+</details>
+
+<details><summary>例子：jsonnet -m . file</summary>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>jsonnet <span class="nt">-m</span> <span class="nb">.</span> multiple_output.jsonnet
+a.json
+b.json
+<span class="nv">$ </span><span class="nb">cat </span>a.json
+Output:
+<span class="o">{</span>
+   <span class="s2">"x"</span>: 1,
+   <span class="s2">"y"</span>: 2
+<span class="o">}</span>
+<span class="nv">$ </span><span class="nb">cat </span>b.json
+<span class="o">{</span>
+   <span class="s2">"x"</span>: 1,
+   <span class="s2">"y"</span>: 2
+<span class="o">}</span></code></pre></figure>
+
+</details>
+<details><summary>例子：jsonnet -y file</summary>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>jsonnet <span class="nt">-y</span> yaml_stream.jsonnet
+
+<span class="nt">---</span>
+<span class="o">{</span>
+   <span class="s2">"x"</span>: 1,
+   <span class="s2">"y"</span>: 2
+<span class="o">}</span>
+
+<span class="nt">---</span>
+<span class="o">{</span>
+   <span class="s2">"x"</span>: 1,
+   <span class="s2">"y"</span>: 2
+<span class="o">}</span></code></pre></figure>
+
+</details>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

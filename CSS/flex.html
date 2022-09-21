@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Flex 布局 | 学习笔记</title>
+<meta name="generator" content="Jekyll v3.9.2">
+<meta property="og:title" content="Flex 布局">
+<meta name="author" content="Justin Wu">
+<meta property="og:locale" content="en_US">
+<link rel="canonical" href="https://www.realjustinwu.com/TIL/CSS/flex.html">
+<meta property="og:url" content="https://www.realjustinwu.com/TIL/CSS/flex.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Flex 布局">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Justin Wu"},"headline":"Flex 布局","url":"https://www.realjustinwu.com/TIL/CSS/flex.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/TIL/assets/css/style.css?v=ef0e67f59465ca9ca870982940a65c8d23fc7ce5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'G-MKPQNG88DD', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/TIL/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.realjustinwu.com/TIL/">学习笔记</a></h1>
+      
+
+      <h1 id="flex-布局">Flex 布局</h1>
+
+<style>
+.box {
+    display: flex;
+}
+.box-item {
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    vertical-align: middle;
+    margin: 5px;
+    background-color: #ffd200;
+    font-size: 100px;
+    color: white;
+    text-align: center;
+}
+.box-item-sm {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin: 5px;
+    background-color: #ffd200;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+.box-item-auto {
+    width: auto;
+    height: auto;
+    line-height: 50px;
+    vertical-align: middle;
+    margin: 5px;
+    background-color: #ffd200;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+
+</style>
+
+<p>Flex 是2009年提出的新的布局方案，用来代替原来的盒状模型。</p>
+
+<ul>
+  <li>
+<a href="#%E5%AE%B9%E5%99%A8%E5%B1%9E%E6%80%A7">容器属性</a>
+    <ul>
+      <li><a href="#flex-direction-%E4%B8%BB%E8%BD%B4%E6%96%B9%E5%90%91">flex-direction: 主轴方向</a></li>
+      <li><a href="#flex-wrap-%E6%98%AF%E5%90%A6%E6%8D%A2%E8%A1%8C">flex-wrap: 是否换行</a></li>
+      <li><a href="#flex-flow-directionwrap">flex-flow: direction+wrap</a></li>
+      <li><a href="#justify-content-%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">justify-content: 主轴上的对齐方式</a></li>
+      <li><a href="#align-items-%E4%BA%A4%E5%8F%89%E8%BD%B4%E4%B8%8A%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">align-items: 交叉轴上的对齐方式</a></li>
+      <li><a href="#align-content-%E5%A4%9A%E6%A0%B9%E8%BD%B4%E7%BA%BF%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">align-content: 多根轴线的对齐方式</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%B1%9E%E6%80%A7">项目的属性</a>
+    <ul>
+      <li><a href="#order-integer-%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%8E%92%E5%88%97%E9%A1%BA%E5%BA%8F">order: &lt;integer&gt;: 项目的排列顺序</a></li>
+      <li><a href="#flex-grow-number-%E5%AE%9A%E4%B9%89%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%94%BE%E5%A4%A7%E6%AF%94%E4%BE%8B">flex-grow: &lt;number&gt;: 定义项目的放大比例</a></li>
+      <li><a href="#flex-shrink-number-%E5%AE%9A%E4%B9%89%E4%BA%86%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%BC%A9%E5%B0%8F%E6%AF%94%E4%BE%8B">flex-shrink: &lt;number&gt;: 定义了项目的缩小比例</a></li>
+      <li><a href="#flex-basis-length-or-auto-%E5%9C%A8%E5%88%86%E9%85%8D%E5%A4%9A%E4%BD%99%E7%A9%BA%E9%97%B4%E4%B9%8B%E5%89%8D%E9%A1%B9%E7%9B%AE%E5%8D%A0%E6%8D%AE%E7%9A%84%E4%B8%BB%E8%BD%B4%E7%A9%BA%E9%97%B4">flex-basis: &lt;length&gt; or auto 在分配多余空间之前，项目占据的主轴空间</a></li>
+      <li><a href="#flex-flex-grow--flex-shrink--flex-basis">flex: flex-grow + flex-shrink + flex-basis</a></li>
+      <li><a href="#align-self-item-%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">align-self: item 的对齐方式</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="容器属性">容器属性</h2>
+
+<h3 id="flex-direction-主轴方向">flex-direction: 主轴方向</h3>
+
+<p>决定主轴的方向（即项目的排列方向）</p>
+
+<p><img src="/TIL/CSS/flex-container.png" alt="flex-container"></p>
+
+<style>
+.box-row {
+    flex-direction: row;
+}
+.box-rowr {
+    flex-direction: row-reverse;
+}
+.box-column {
+    flex-direction: column;
+}
+.box-columnr {
+    flex-direction: column-reverse;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-direction: row</code> （默认值）：主轴为水平方向，起点在左端。
+    <details><summary>Show</summary>
+ <div class="box box-row">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-direction: row-reverse</code> 主轴为水平方向，起点在右端。
+    <details><summary>Show</summary>
+ <div class="box box-rowr">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-direction: column</code> 主轴为垂直方向，起点在上沿。
+    <details><summary>Show</summary>
+ <div class="box box-column">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-direction: column-reverse</code> 主轴为垂直方向，起点在下沿。
+    <details><summary>Show</summary>
+ <div class="box box-columnr">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="flex-wrap-是否换行">flex-wrap: 是否换行</h3>
+
+<p>默认情况下，项目都排在一条线，flex-wrap 可以设置拍不下之后换行</p>
+
+<style>
+.box-wrap {
+    flex-wrap: wrap;
+}
+.box-nowrap {
+    flex-wrap: nowrap;
+}
+.box-wrapr {
+    flex-wrap: wrap-reverse;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-wrap: nowrap</code> （默认）：不换行
+    <details><summary>Show</summary>
+ <div class="box box-row box-nowrap">
+     <div class="box-item">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item">5</div>
+     <div class="box-item">6</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-wrap: wrap</code> 换行，第一行在上方。
+    <details><summary>Show</summary>
+ <div class="box box-row box-wrap">
+     <div class="box-item">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item">5</div>
+     <div class="box-item">6</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-wrap: wrap-reverse</code>  换行，第一行在下方。
+    <details><summary>Show</summary>
+ <div class="box box-row box-wrapr">
+     <div class="box-item">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item">5</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="flex-flow-directionwrap">flex-flow: direction+wrap</h3>
+
+<p>flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 row nowrap。</p>
+
+<style>
+.box-row-wrap {
+    flex-flow: row wrap;
+}
+.box-row-nowrap {
+    flex-flow: row nowrap;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-flow: row wrap</code> 水平，换行
+    <details><summary>Show</summary>
+ <div class="box box-row-wrap">
+     <div class="box-item">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">flex-flow: row nowrap</code> 水平，不换行
+    <details><summary>Show</summary>
+ <div class="box box-row-nowrap">
+     <div class="box-item">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item">5</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="justify-content-主轴上的对齐方式">justify-content: 主轴上的对齐方式</h3>
+
+<p>justify-content 属性定义了项目在主轴上的对齐方式。</p>
+
+<style>
+.box-j-start {
+    justify-content: flex-start;
+}
+.box-j-end {
+    justify-content: flex-end;
+}
+.box-j-center {
+    justify-content: center;
+}
+.box-j-between {
+    justify-content: space-between ;
+}
+.box-j-around {
+    justify-content: space-around;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">justify-content: flex-start</code> 左对齐
+    <details><summary>Show</summary>
+ <div class="box box-j-start">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">justify-content: flex-end</code> 右对齐
+    <details><summary>Show</summary>
+ <div class="box box-j-end">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">justify-content: center</code> 居中
+    <details><summary>Show</summary>
+ <div class="box box-j-center">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">justify-content: space-between</code> 两端对齐
+    <details><summary>Show</summary>
+ <div class="box box-j-between">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">justify-content: space-around</code> 左对齐
+    <details><summary>Show</summary>
+ <div class="box box-j-around">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="align-items-交叉轴上的对齐方式">align-items: 交叉轴上的对齐方式</h3>
+
+<p>align-items 属性定义项目在交叉轴上如何对齐。</p>
+
+<style>
+.box-align-item-start {
+  align-items: flex-start;
+}
+.box-align-item-end {
+  align-items: flex-end;
+}
+.box-align-item-center {
+  align-items: center;
+}
+.box-align-item-baseline {
+  align-items: baseline;
+}
+.box-align-item-stretch {
+  align-items: stretch;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-items: flex-start</code> 交叉轴的起点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-item-start">
+     <div class="box-item-sm">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-items: flex-end</code> 交叉轴的终点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-item-end">
+     <div class="box-item-sm">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-items: center</code> 交叉轴的中点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-item-center">
+     <div class="box-item-sm">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-items: baseline</code> 项目的第一行文字的基线对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-item-baseline">
+     <div class="box-item-sm">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item-sm">5</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-items: stretch</code> 如果项目未设置高度或设为auto，将占满整个容器的高度
+    <details><summary>Show</summary>
+ <div class="box box-align-item-stretch">
+     <div class="box-item-sm">1</div>
+     <div class="box-item">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item">4</div>
+     <div class="box-item-auto">5</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="align-content-多根轴线的对齐方式">align-content: 多根轴线的对齐方式</h3>
+
+<p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
+
+<style>
+.box-align-content-container{
+    flex-flow: row wrap;
+    height: 300px;
+    background: lightgrey;
+}
+.box-align-content-start {
+  align-content: flex-start;
+}
+.box-align-content-end {
+  align-content: flex-end;
+}
+.box-align-content-center {
+  align-content: center;
+}
+.box-align-content-between {
+  align-content: space-between;
+}
+.box-align-content-around {
+  align-content: space-around;
+}
+.box-align-content-stretch {
+  align-content: stretch;
+}
+</style>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: flex-start</code> 与交叉轴的起点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-start">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: flex-end</code> 与交叉轴的终点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-end">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: center</code> 与交叉轴的中点对齐
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-center">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: space-between</code> 与交叉轴两端对齐，轴线之间的间隔平均分布
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-between">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: space-around</code> 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-around">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">align-content: stretch</code> 轴线占满整个交叉轴。
+    <details><summary>Show</summary>
+ <div class="box box-align-content-container box-align-content-stretch">
+     <div class="box-item-sm">1</div>
+     <div class="box-item-sm">2</div>
+     <div class="box-item-sm">3</div>
+     <div class="box-item-sm">4</div>
+     <div class="box-item-sm">5</div>
+     <div class="box-item-sm">6</div>
+     <div class="box-item-sm">7</div>
+     <div class="box-item-sm">8</div>
+     <div class="box-item-auto">auto</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h2 id="项目的属性">项目的属性</h2>
+
+<h3 id="order-integer-项目的排列顺序">order: &lt;integer&gt;: 项目的排列顺序</h3>
+
+<style>
+.item_order__1 {
+    order: -1;
+}
+.item_order_0 {
+    order: 0;
+}
+.item_order_1 {
+    order: 1;
+}
+.item_order_9 {
+    order: 9;
+}
+.item_order_100 {
+    order: 100;
+}
+</style>
+
+<details><summary>Show</summary>
+    <div class="box box-row">
+        <div class="box-item-sm item_order_100">100</div>
+        <div class="box-item-sm item_order__1">-1</div>
+        <div class="box-item-sm item_order_9">9</div>
+        <div class="box-item-sm item_order_0">0</div>
+        <div class="box-item-sm item_order_1">1</div>
+    </div>
+</details>
+
+<h3 id="flex-grow-number-定义项目的放大比例">flex-grow: &lt;number&gt;: 定义项目的放大比例</h3>
+
+<p>默认为 0，即如果存在剩余空间，也不放大。</p>
+
+<style>
+.item_grow_0 {
+    flex-grow: 0;
+}
+.item_grow_1 {
+    flex-grow: 1;
+}
+.item_grow_2 {
+    flex-grow: 2;
+}
+</style>
+
+<details><summary>Show</summary>
+    <div class="box box-row">
+        <div class="box-item-sm item_grow_0">0</div>
+        <div class="box-item-sm item_grow_0">0</div>
+        <div class="box-item-sm item_grow_0">0</div>
+    </div>
+        <div class="box box-row">
+        <div class="box-item-sm item_grow_1">1</div>
+        <div class="box-item-sm item_grow_1">1</div>
+        <div class="box-item-sm item_grow_1">1</div>
+    </div>
+        <div class="box box-row">
+        <div class="box-item-sm item_grow_0">0</div>
+        <div class="box-item-sm item_grow_1">1</div>
+        <div class="box-item-sm item_grow_2">2</div>
+    </div>
+</details>
+
+<h3 id="flex-shrink-number-定义了项目的缩小比例">flex-shrink: &lt;number&gt;: 定义了项目的缩小比例</h3>
+
+<p>默认为1，即如果空间不足，该项目将缩小。</p>
+
+<style>
+.item_shrink_0 {
+    flex-shrink: 0;
+}
+.item_grow_1 {
+    flex-shrink: 1;
+}
+</style>
+
+<details><summary>Show</summary>
+    <div class="box box-row">
+        <div class="box-item item_shrink_0">0</div>
+        <div class="box-item item_shrink_0">0</div>
+        <div class="box-item item_shrink_0">0</div>
+    </div>
+    <div class="box box-row">
+        <div class="box-item item_shrink_1">1</div>
+        <div class="box-item item_shrink_1">1</div>
+        <div class="box-item item_shrink_1">1</div>
+    </div>
+    <div class="box box-row">
+        <div class="box-item item_shrink_0">0</div>
+        <div class="box-item item_shrink_1">1</div>
+        <div class="box-item item_shrink_1">1</div>
+    </div>
+</details>
+
+<h3 id="flex-basis-length-or-auto-在分配多余空间之前项目占据的主轴空间">flex-basis: &lt;length&gt; or auto 在分配多余空间之前，项目占据的主轴空间</h3>
+
+<p>浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
+
+<style>
+.item_basis_auto {
+    flex-basis: auto;
+    font-size: 20px;
+}
+.item_basis_100 {
+    flex-basis: 100px;
+    font-size: 20px;
+}
+</style>
+
+<details><summary>Show</summary>
+    <div class="box box-row">
+        <div class="box-item item_basis_auto">auto</div>
+        <div class="box-item item_basis_100">100</div>
+    </div>
+    <div class="box box-row">
+        <div class="box-item item_basis_100">100</div>
+        <div class="box-item item_basis_auto">auto</div>
+    </div>
+</details>
+
+<h3 id="flex-flex-grow--flex-shrink--flex-basis">flex: flex-grow + flex-shrink + flex-basis</h3>
+
+<p>默认值为 0 1 auto。后两个属性可选。
+两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</p>
+
+<style>
+.item_flex_auto {
+    flex: auto;
+}
+.item_flex_none {
+    flex: none;
+}
+</style>
+
+<ol>
+  <li>flex: auto
+    <details><summary>Show</summary>
+ <div class="box box-row">
+     <div class="box-item item_flex_auto">auto</div>
+     <div class="box-item item_flex_auto">auto</div>
+ </div>
+ <div class="box box-row">
+     <div class="box-item-sm item_flex_auto">auto</div>
+     <div class="box-item-sm item_flex_auto">auto</div>
+ </div>
+ </details>
+  </li>
+  <li>flex: none
+    <details><summary>Show</summary>
+ <div class="box box-row">
+     <div class="box-item item_flex_none">non</div>
+     <div class="box-item item_flex_none">non</div>
+ </div>
+ <div class="box box-row">
+     <div class="box-item-sm item_flex_none">non</div>
+     <div class="box-item-sm item_flex_none">non</div>
+ </div>
+ </details>
+  </li>
+</ol>
+
+<h3 id="align-self-item-的对齐方式">align-self: item 的对齐方式</h3>
+
+<p>允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。</p>
+
+<style>
+.item_align_self {
+    align-self: flex-end
+}
+</style>
+
+<details><summary>Show</summary>
+    <div class="box box-align-item-start">
+        <div class="box-item-sm">1</div>
+        <div class="box-item">2</div>
+        <div class="box-item-sm item_align_self">3</div>
+        <div class="box-item">4</div>
+        <div class="box-item-sm">5</div>
+    </div>
+</details>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

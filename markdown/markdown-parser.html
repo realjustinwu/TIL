@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Markdown Parser | 学习笔记</title>
+<meta name="generator" content="Jekyll v3.9.2">
+<meta property="og:title" content="Markdown Parser">
+<meta name="author" content="Justin Wu">
+<meta property="og:locale" content="en_US">
+<link rel="canonical" href="https://www.realjustinwu.com/TIL/markdown/markdown-parser.html">
+<meta property="og:url" content="https://www.realjustinwu.com/TIL/markdown/markdown-parser.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Markdown Parser">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Justin Wu"},"headline":"Markdown Parser","url":"https://www.realjustinwu.com/TIL/markdown/markdown-parser.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/TIL/assets/css/style.css?v=ef0e67f59465ca9ca870982940a65c8d23fc7ce5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'G-MKPQNG88DD', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/TIL/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.realjustinwu.com/TIL/">学习笔记</a></h1>
+      
+
+      <h1 id="markdown-parser">Markdown Parser</h1>
+
+<p>Markdown 文本需要经过 markdown parser 的处理才能转成 html，才能被 preview。
+不同种类的 markdown parser 提供的功能不一样。因此经常遇到在 VS code 上能 preview 的 markdown，上传到 github pages 之后，达不到预期效果。
+比如，<code class="language-plaintext highlighter-rouge">&lt;details&gt;&lt;summary&gt;</code> 里面插入代码，或者使用自定义的 css 等。在不同的 parser 中展示的结果不同。
+选择一个自己喜欢的 Parser 很重要。</p>
+
+<h2 id="markdown-parser-分类">Markdown Parser 分类</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Library (download project)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Perl</td>
+      <td><a href="http://daringfireball.net/projects/markdown/">Original version</a></td>
+    </tr>
+    <tr>
+      <td>JavaScript</td>
+      <td>
+<a href="https://github.com/jgm/commonmark.js">CommonMark</a>, <a href="https://github.com/markedjs/marked">Marked</a>, <a href="https://github.com/markdown-it/markdown-it">Markdown-it</a>, <a href="https://github.com/jonschlinkert/remarkable">Remarkable</a>, <a href="https://github.com/showdownjs/showdown">Showdown</a>
+</td>
+    </tr>
+    <tr>
+      <td>Ruby</td>
+      <td>
+<a href="https://github.github.com/gfm/">Github Flavored Markup(GMF)</a>, <a href="https://github.com/gettalong/kramdown">Kramdown</a>, <a href="https://github.com/bhollis/maruku">Maruku</a>, <a href="https://github.com/vmg/redcarpet">Redcarpet</a>
+</td>
+    </tr>
+    <tr>
+      <td>PHP</td>
+      <td>
+<a href="https://github.com/cebe/markdown">Cebe Markdown</a>, <a href="https://github.com/kzykhys/Ciconia">Ciconia</a>, <a href="https://github.com/erusev/parsedown">Parsedown</a>, <a href="https://github.com/piwi/markdown-extended">PHP Markdown Extended</a>
+</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td><a href="https://pypi.python.org/pypi/Markdown">Python Markdown</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="markdown-功能">Markdown 功能</h2>
+
+<p>Markdown Parser 都支持的功能包括：Inline HTML, Automatic paragraphs, headers, blockquotes, lists, code blocks, horizontal rules, links, emphasis, inline code and images。
+除了这些常规功能，每一个 parser 都支持其他特殊的功能。</p>
+
+<ul>
+  <li>GMF: Fenced Codeblocks, Syntax Highlighting, Tables, URL AutoLinking, To-dos, Strikethrough.</li>
+  <li>CommonMark: Fenced Codeblocks, URL AutoLinking</li>
+  <li>Multi-markdown: Fenced Codeblocks, Syntax Highlighting, Tables, Metadata, Fragments/Cross References Links, Footnotes, Strikethrough, Definition Lists, Math.</li>
+</ul>
+
+<p>参考：</p>
+
+<ol>
+  <li><a href="https://css-tricks.com/choosing-right-markdown-parser/">Link</a></li>
+</ol>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
