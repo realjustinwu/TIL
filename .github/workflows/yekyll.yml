@@ -22,7 +22,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.4  # Ensure you are using a compatible Ruby version
+          ruby-version: 3.1.4  # Ensure you are using a compatible Ruby version
           bundler-cache: true
 
       # Install dependencies
