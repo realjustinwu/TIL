@@ -33,3 +33,7 @@
 
 - [稀缺：我们是如何陷入贫穷与忙碌的](books/稀缺.md)
 - [底层逻辑：看清这个世界的底牌](books/底层逻辑.md)
+
+
+ <p style="text-align: center; margin-top: 100px;">ICP备案号: <a href="https://beian.miit.gov.cn" target="_blank">闽ICP备2022016106号-1</a></p>
+ 
